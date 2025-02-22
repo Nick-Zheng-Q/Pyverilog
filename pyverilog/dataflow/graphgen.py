@@ -54,7 +54,7 @@ class VerilogGraphGenerator(object):
                                                 self.resolved_binddict, constlist)
         self.optimizer = VerilogOptimizer(terms, constlist)
 
-    def generate(self, signalname, identical=False, walk=True, step=1, do_reorder=False, delay=False):
+    def generate(self, signalname, identical=False, walk=True, step=1, do_reorder=False, delay=False,  alwaysinfo=None, withcolor=False):
         termname = util.toTermname(signalname)
         tree = self.treewalker.getTree(termname)
         if tree is None:

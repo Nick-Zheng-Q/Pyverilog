@@ -1736,6 +1736,9 @@ class VerilogParser(object):
         'initial : INITIAL initial_statement'
         p[0] = Initial(p[2], lineno=p.lineno(1))
         p.set_lineno(0, p.lineno(1))
+        # 从 initial_statement 获取结束行号
+        if hasattr(p[2], 'end_lineno'):
+            p[0].end_lineno = p[2].end_lineno
 
     def p_initial_statement(self, p):
         'initial_statement : basic_statement'
@@ -2177,6 +2180,7 @@ class VerilogParser(object):
         'task : TASK ID SEMICOLON task_statement ENDTASK'
         p[0] = Task(p[2], p[4], lineno=p.lineno(1))
         p.set_lineno(0, p.lineno(1))
+        p[0].end_lineno = p.lineno(5)
 
     def p_task_statement(self, p):
         'task_statement : taskvardecls task_calc'

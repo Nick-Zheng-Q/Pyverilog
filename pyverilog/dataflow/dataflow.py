@@ -777,7 +777,7 @@ class Term(object):
 
 class Bind(object):
     def __init__(self, tree, dest, msb=None, lsb=None, ptr=None,
-                 alwaysinfo=None, parameterinfo=''):
+                 alwaysinfo=None, parameterinfo='', lineno=None):
         self.tree = tree
         self.dest = dest
         self.msb = msb
@@ -785,6 +785,7 @@ class Bind(object):
         self.ptr = ptr
         self.alwaysinfo = alwaysinfo
         self.parameterinfo = parameterinfo
+        self.lineno = lineno
         if dest is None:
             raise verror.DefinitionError('Bind dest is empty')
 

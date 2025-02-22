@@ -92,13 +92,13 @@ class BindVisitor(NodeVisitor):
             self.setConstant(name, value)
 
         if len(self.dataflow.getBindlist(name)) == 0:
-            self.addBind(node.name, node.value, bindtype='parameter')
+            self.addBind(node.name, node.value, bindtype='parameter', lineno=node.lineno)
 
     def visit_Supply(self, node):
         self.addTerm(node)
         current = self.frames.getCurrent()
         name = current + ScopeLabel(node.name, 'signal')
-        self.addBind(node.name, node.value, bindtype='parameter')
+        self.addBind(node.name, node.value, bindtype='parameter', lineno=node.lineno)
 
     def visit_Localparam(self, node):
         self.addTerm(node)
@@ -108,7 +108,7 @@ class BindVisitor(NodeVisitor):
             value = self.optimize(self.getTree(node.value, current))
             self.setConstant(name, value)
 
-        self.addBind(node.name, node.value, bindtype='localparam')
+        self.addBind(node.name, node.value, bindtype='localparam', lineno=node.lineno)
 
     def visit_Genvar(self, node):
         self.addTerm(node)
@@ -204,7 +204,7 @@ class BindVisitor(NodeVisitor):
             concat_list = ([Pointer(p.argname, IntConst('0')) for p in node.portlist[1:]] if arrayindex is None else
                            [Pointer(p.argname, IntConst(str(arrayindex))) for p in node.portlist[1:]])
             right = primitive_type(Concat(concat_list))
-        self.addBind(left, right, bindtype='assign')
+        self.addBind(left, right, bindtype='assign', lineno=node.lineno)
 
     def visit_Initial(self, node):
         pass
@@ -333,7 +333,7 @@ class BindVisitor(NodeVisitor):
                                       always=self.frames.isAlways(),
                                       initial=self.frames.isInitial())
 
-        self.copyPreviousNonblockingAssign(current + ScopeLabel(label, 'if'))
+        self.copyPreviousNonblockingAssign(current + ScopeLabel(label, 'if'), node.lineno)
 
         if node.true_statement is not None:
             self.visit(node.true_statement)
@@ -353,7 +353,7 @@ class BindVisitor(NodeVisitor):
                                       always=self.frames.isAlways(),
                                       initial=self.frames.isInitial())
 
-        self.copyPreviousNonblockingAssign(current + ScopeLabel(label, 'if'))
+        self.copyPreviousNonblockingAssign(current + ScopeLabel(label, 'if'), node.lineno)
 
         if node.false_statement is not None:
             self.visit(node.false_statement)
@@ -367,7 +367,7 @@ class BindVisitor(NodeVisitor):
             return
         start_frame = self.frames.getCurrent()
         caseframes = []
-        self._case(node.comp, node.caselist, caseframes)
+        self._case(node.comp, node.caselist, caseframes, node.lineno)
         self.frames.setCurrent(start_frame)
         for f in caseframes:
             self.copyBlockingAssigns(f, start_frame)
@@ -375,7 +375,7 @@ class BindVisitor(NodeVisitor):
     def visit_CasexStatement(self, node):
         return self.visit_CaseStatement(node)
 
-    def _case(self, comp, caselist, myframes):
+    def _case(self, comp, caselist, myframes, lineno):
         if len(caselist) == 0:
             return
 
@@ -399,7 +399,7 @@ class BindVisitor(NodeVisitor):
                                       always=self.frames.isAlways(),
                                       initial=self.frames.isInitial())
 
-        self.copyPreviousNonblockingAssign(current + ScopeLabel(label, 'if'))
+        self.copyPreviousNonblockingAssign(current + ScopeLabel(label, 'if'), lineno)
 
         myframes.append(self.frames.getCurrent())
 
@@ -420,11 +420,11 @@ class BindVisitor(NodeVisitor):
                                       always=self.frames.isAlways(),
                                       initial=self.frames.isInitial())
 
-        self.copyPreviousNonblockingAssign(current + ScopeLabel(label, 'if'))
+        self.copyPreviousNonblockingAssign(current + ScopeLabel(label, 'if'), lineno)
 
         myframes.append(current + ScopeLabel(label, 'if'))
 
-        self._case(comp, caselist[1:], myframes)
+        self._case(comp, caselist[1:], myframes, lineno)
 
     def visit_ForStatement(self, node):
         if self.frames.isFunctiondef() and not self.frames.isFunctioncall():
@@ -543,10 +543,10 @@ class BindVisitor(NodeVisitor):
             self.copyBlockingAssigns(current + ScopeLabel(label, 'block'), current)
 
     def visit_Assign(self, node):
-        self.addBind(node.left, node.right, bindtype='assign')
+        self.addBind(node.left, node.right, bindtype='assign', lineno=node.lineno)
 
     def visit_BlockingSubstitution(self, node):
-        self.addBind(node.left, node.right, self.frames.getAlwaysStatus(), 'blocking')
+        self.addBind(node.left, node.right, self.frames.getAlwaysStatus(), 'blocking', lineno=node.lineno)
 
     def visit_NonblockingSubstitution(self, node):
         if self.frames.isForpre() or self.frames.isForpost():
@@ -554,7 +554,7 @@ class BindVisitor(NodeVisitor):
                                       "in for-statement"))
         if self.frames.isFunctioncall():
             raise verror.FormatError("Non Blocking Substitution is not allowed in function")
-        self.addBind(node.left, node.right, self.frames.getAlwaysStatus(), 'nonblocking')
+        self.addBind(node.left, node.right, self.frames.getAlwaysStatus(), 'nonblocking', lineno=node.lineno)
 
     def visit_SystemCall(self, node):
         print("Warning: Isolated system call is not supported: %s" % node.syscall)
@@ -647,7 +647,7 @@ class BindVisitor(NodeVisitor):
             self.dataflow.addTask(name, definition.getDefinition())
             self.dataflow.addTaskPorts(name, definition.getIOPorts())
 
-    def copyPreviousNonblockingAssign(self, scope):
+    def copyPreviousNonblockingAssign(self, scope, lineno):
         assign = self.frames.getPreviousNonblockingAssign()
         for name, bindlist in assign.items():
             for bind in bindlist:
@@ -662,7 +662,7 @@ class BindVisitor(NodeVisitor):
                 raw_tree = bind.tree
                 new_bind = self.makeBind(name, msb, lsb, ptr, part_msb, part_lsb,
                                          raw_tree, condlist, flowlist,
-                                         alwaysinfo=alwaysinfo)
+                                         alwaysinfo=alwaysinfo, lineno=lineno)
                 self.dataflow.addBind(name, new_bind)
 
     def copyBlockingAssigns(self, scope_copy_from, scope_copy_to):
@@ -879,7 +879,7 @@ class BindVisitor(NodeVisitor):
         self.dataflow.addTerm(name, term)
         self.setConstantTerm(name, term)
 
-    def addBind(self, left, right, alwaysinfo=None, bindtype=None):
+    def addBind(self, left, right, alwaysinfo=None, bindtype=None, lineno=None):
         if self.frames.isFunctiondef() and not self.frames.isFunctioncall():
             return
         if self.frames.isTaskdef() and not self.frames.isTaskcall():
@@ -889,9 +889,9 @@ class BindVisitor(NodeVisitor):
         dst = self.getDestinations(left, lscope)
 
         if bindtype == 'blocking':
-            self.addDataflow_blocking(dst, right, lscope, rscope, alwaysinfo)
+            self.addDataflow_blocking(dst, right, lscope, rscope, alwaysinfo, lineno)
         else:
-            self.addDataflow(dst, right, lscope, rscope, alwaysinfo, bindtype)
+            self.addDataflow(dst, right, lscope, rscope, alwaysinfo, bindtype, lineno)
 
     def addInstanceParameterBind(self, param, name=None):
         lscope = self.frames.getCurrent()
@@ -933,16 +933,16 @@ class BindVisitor(NodeVisitor):
                 rdst = self.getDestinations(portarg, rscope)
                 self.addDataflow(rdst, portname, rscope, lscope)
 
-    def addDataflow(self, dst, right, lscope, rscope, alwaysinfo=None, bindtype=None):
+    def addDataflow(self, dst, right, lscope, rscope, alwaysinfo=None, bindtype=None, lineno=None):
         condlist, flowlist = self.getCondflow(lscope)
         raw_tree = self.getTree(right, rscope)
-        self.setDataflow(dst, raw_tree, condlist, flowlist, alwaysinfo, bindtype)
+        self.setDataflow(dst, raw_tree, condlist, flowlist, alwaysinfo, bindtype, lineno=lineno)
 
-    def addDataflow_blocking(self, dst, right, lscope, rscope, alwaysinfo):
+    def addDataflow_blocking(self, dst, right, lscope, rscope, alwaysinfo, lineno):
         condlist, flowlist = self.getCondflow(lscope)
         raw_tree = self.getTree(right, rscope)
 
-        self.setDataflow_rename(dst, raw_tree, condlist, flowlist, lscope, alwaysinfo)
+        self.setDataflow_rename(dst, raw_tree, condlist, flowlist, lscope, alwaysinfo, lineno=lineno)
 
         if len(dst) == 1:  # set genvar value to the constant table
             name = dst[0][0]
@@ -1392,15 +1392,14 @@ class BindVisitor(NodeVisitor):
                                  (str(type(left)), str(left)))
 
     def setDataflow(self, dst, raw_tree, condlist, flowlist,
-                    alwaysinfo=None, bindtype=None):
-
+                    alwaysinfo=None, bindtype=None, lineno=None):
         for name, msb, lsb, ptr, part_msb, part_lsb in dst:
             bind = self.makeBind(name, msb, lsb, ptr, part_msb, part_lsb,
                                  raw_tree, condlist, flowlist,
                                  num_dst=len(dst),
                                  alwaysinfo=alwaysinfo,
-                                 bindtype=bindtype)
-
+                                 bindtype=bindtype,
+                                 lineno=lineno)
             self.dataflow.addBind(name, bind)
 
             if alwaysinfo is not None:
@@ -1410,10 +1409,10 @@ class BindVisitor(NodeVisitor):
                                           alwaysinfo)
 
     def setDataflow_rename(self, dst, raw_tree, condlist, flowlist,
-                           scope, alwaysinfo=None):
+                           scope, alwaysinfo=None, lineno=None):
         renamed_dst = self.getRenamedDst(dst)
         self.setRenamedTree(renamed_dst, raw_tree, alwaysinfo)
-        self.setRenamedFlow(dst, renamed_dst, condlist, flowlist, scope, alwaysinfo)
+        self.setRenamedFlow(dst, renamed_dst, condlist, flowlist, scope, alwaysinfo, lineno)
 
     def setNonblockingAssign(self, name, dst, raw_tree, msb, lsb, ptr,
                              part_msb, part_lsb, alwaysinfo):
@@ -1456,20 +1455,20 @@ class BindVisitor(NodeVisitor):
             self.setConstantTerm(name, Term(name, set(['Rename']), msb, lsb))
 
     def setRenamedFlow(self, dst, renamed_dst, condlist, flowlist,
-                       scope, alwaysinfo=None):
+                       scope, alwaysinfo=None, lineno=None):
         term_i = 0
         for name, msb, lsb, ptr, part_msb, part_lsb in dst:
             renamed_term = DFTerminal(renamed_dst[term_i][0])
             renamed_bind = self.makeBind(name, msb, lsb, ptr, part_msb, part_lsb,
                                          renamed_term, condlist, flowlist,
-                                         num_dst=len(dst), alwaysinfo=alwaysinfo)
+                                         num_dst=len(dst), alwaysinfo=alwaysinfo, lineno=lineno)
             self.dataflow.addBind(name, renamed_bind)
             self.frames.setBlockingAssign(name, renamed_bind, scope)
             term_i += 1
 
     def makeBind(self, name, msb, lsb, ptr, part_msb, part_lsb,
                  raw_tree, condlist, flowlist,
-                 num_dst=1, alwaysinfo=None, bindtype=None):
+                 num_dst=1, alwaysinfo=None, bindtype=None, lineno=None):
 
         current_bindlist = self.getBindlist(name)
         current_tree = None
@@ -1513,7 +1512,7 @@ class BindVisitor(NodeVisitor):
             tree = reorder.reorder(
                 DFPartselect(tree, part_msb, part_lsb))
 
-        return Bind(tree, name, msb, lsb, ptr, alwaysinfo, bindtype)
+        return Bind(tree, name, msb, lsb, ptr, alwaysinfo, bindtype, lineno)
 
     def diffBranchTree(self, tree, condlist, flowlist, matchflowlist=()):
         if len(condlist) == 0:

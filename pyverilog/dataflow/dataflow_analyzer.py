@@ -86,3 +86,17 @@ class VerilogDataflowAnalyzer(VerilogCodeParser):
 
     def getBinddict(self):
         return self.binddict
+    
+    def getDataflows(self):
+        """返回数据流分析的结果
+        Returns:
+            dict: 包含所有数据流信息的字典，key为termname(str)，value为相应的绑定
+        """
+        dataflows = {}
+        for termname in self.binddict.keys():
+            if termname in self.terms:
+                dataflows[termname] = {
+                    'term': self.terms[termname],
+                    'bind': self.binddict[termname]
+                }
+        return dataflows

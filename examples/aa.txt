@@ -1,0 +1,407 @@
+(.venv) PS D:\LLM4RV\Pyverilog> python .\examples\signal_level.py
+=== 开始解析Verilog文件 ===
+Generating LALR tables
+WARNING: 183 shift/reduce conflicts
+文件解析完成
+
+=== 开始分析代码块和信号 ===
+找到 6 个代码块
+找到 7 个信号
+
+=== 开始数据流分析 ===
+Generating LALR tables
+WARNING: 183 shift/reduce conflicts
+使用顶层模块名: top
+使用文件路径: D:\LLM4RV\Pyverilog\test.v
+Generating LALR tables
+WARNING: 183 shift/reduce conflicts
+
+=== 开始数据流分析 ===
+
+=== Terms信息 ===
+Terms数量: 7
+
+Term名称: top.CLK
+Term类型: Term
+Term属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'dims', 'getScope', 'isTopmodule', 'lsb', 'msb', 'name', 'termtype', 'tocode', 'tostr']
+
+Term名称: top.RST
+Term类型: Term
+Term属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'dims', 'getScope', 'isTopmodule', 'lsb', 'msb', 'name', 'termtype', 'tocode', 'tostr']
+
+Term名称: top.enable
+Term类型: Term
+Term属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'dims', 'getScope', 'isTopmodule', 'lsb', 'msb', 'name', 'termtype', 'tocode', 'tostr']
+
+Term名称: top.value
+Term类型: Term
+Term属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'dims', 'getScope', 'isTopmodule', 'lsb', 'msb', 'name', 'termtype', 'tocode', 'tostr']
+
+Term名称: top.led
+Term类型: Term
+Term属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'dims', 'getScope', 'isTopmodule', 'lsb', 'msb', 'name', 'termtype', 'tocode', 'tostr']
+
+Term名称: top.count
+Term类型: Term
+Term属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'dims', 'getScope', 'isTopmodule', 'lsb', 'msb', 'name', 'termtype', 'tocode', 'tostr']
+
+Term名称: top.state
+Term类型: Term
+Term属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'dims', 'getScope', 'isTopmodule', 'lsb', 'msb', 'name', 'termtype', 'tocode', 'tostr']
+
+=== Binddict信息 ===
+Binddict数量: 3
+
+Bind名称: top.led
+Bind类型: list
+Bind属性: ['__add__', '__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
+
+Bind名称: top.count
+Bind类型: list
+Bind属性: ['__add__', '__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
+
+Bind名称: top.state
+Bind类型: list
+Bind属性: ['__add__', '__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
+
+=== Binddict详细信息 ===
+
+Bind名称: top.led
+绑定列表长度: 1
+
+  绑定项 0:
+  类型: Bind
+  属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__slotnames__', '__str__', '__subclasshook__', '__weakref__', '_always_clockedge', '_always_combination', '_assign', '_localparam', '_parameter', 'alwaysinfo', 'dest', 'getClockBit', 'getClockEdge', 'getClockName', 'getResetBit', 'getResetEdge', 'getResetName', 'getSenslist', 'getdest', 'isClockEdge', 'isCombination', 'lineno', 'lsb', 'msb', 'parameterinfo', 'ptr', 'tocode', 'tostr', 'tree']
+  表达式树: PartSelect
+  表达式树类型: <class 'pyverilog.dataflow.dataflow.DFPartselect'>
+  表达式树属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'attr_names', 'children', 'lsb', 'msb', 'tocode', 'tolabel', 'tostr', 'var']
+  目标: top.led
+  目标类型: <class 'pyverilog.utils.scope.ScopeChain'>
+
+Bind名称: top.count
+绑定列表长度: 1
+
+  绑定项 0:
+  类型: Bind
+  属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__slotnames__', '__str__', '__subclasshook__', '__weakref__', '_always_clockedge', '_always_combination', '_assign', '_localparam', '_parameter', 'alwaysinfo', 'dest', 'getClockBit', 'getClockEdge', 'getClockName', 'getResetBit', 'getResetEdge', 'getResetName', 'getSenslist', 'getdest', 'isClockEdge', 'isCombination', 'lineno', 'lsb', 'msb', 'parameterinfo', 'ptr', 'tocode', 'tostr', 'tree']
+  表达式树: Branch
+  表达式树类型: <class 'pyverilog.dataflow.dataflow.DFBranch'>
+  表达式树属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_tocode_always', 'attr_names', 'children', 'condnode', 'falsenode', 'tocode', 'tolabel', 'tostr', 'truenode']
+  目标: top.count
+  目标类型: <class 'pyverilog.utils.scope.ScopeChain'>
+
+Bind名称: top.state
+绑定列表长度: 1
+
+  绑定项 0:
+  类型: Bind
+  属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__slotnames__', '__str__', '__subclasshook__', '__weakref__', '_always_clockedge', '_always_combination', '_assign', '_localparam', '_parameter', 'alwaysinfo', 'dest', 'getClockBit', 'getClockEdge', 'getClockName', 'getResetBit', 'getResetEdge', 'getResetName', 'getSenslist', 'getdest', 'isClockEdge', 'isCombination', 'lineno', 'lsb', 'msb', 'parameterinfo', 'ptr', 'tocode', 'tostr', 'tree']
+  表达式树: Branch
+  表达式树类型: <class 'pyverilog.dataflow.dataflow.DFBranch'>
+  表达式树属性: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_tocode_always', 'attr_names', 'children', 'condnode', 'falsenode', 'tocode', 'tolabel', 'tostr', 'truenode']
+  目标: top.state
+  目标类型: <class 'pyverilog.utils.scope.ScopeChain'>
+
+=== 信号匹配过程 ===
+bind有: top.count
+
+处理信号: CLK
+数据流条目数: 0
+
+处理信号: RST
+数据流条目数: 0
+
+处理信号: enable
+数据流条目数: 0
+
+处理信号: value
+数据流条目数: 0
+
+处理信号: led
+数据流条目数: 1
+数据流详情:
+  目标: top.led
+  涉及信号: ['top.count']
+  表达式: (Partselect Var:(Terminal top.count) MSB:(IntConst 23) LSB:(IntConst 16))
+
+处理信号: count
+数据流条目数: 2
+数据流详情:
+  目标: top.led
+  涉及信号: ['top.count']
+  表达式: (Partselect Var:(Terminal top.count) MSB:(IntConst 23) LSB:(IntConst 16))
+  目标: top.count
+  涉及信号: []
+  表达式: (Branch Cond:(Terminal top.RST) True:(IntConst 0) False:(Branch Cond:(Operator Eq Next:(Terminal top.state),(IntConst 0)) False:(Branch Cond:(Operator Eq Next:(Terminal top.state),(IntConst 1)) False:(Branch Cond:(Operator Eq Next:(Terminal top.state),(IntConst 2)) True:(Operator Plus Next:(Terminal top.count),(Terminal top.value))))))
+
+处理信号: state
+数据流条目数: 1
+数据流详情:
+  目标: top.state
+  涉及信号: []
+  表达式: (Branch Cond:(Terminal top.RST) True:(IntConst 0) False:(Branch Cond:(Operator Eq Next:(Terminal top.state),(IntConst 0)) True:(Branch Cond:(Terminal top.enable) True:(IntConst 1)) False:(Branch Cond:(Operator Eq Next:(Terminal top.state),(IntConst 1)) True:(IntConst 2) False:(Branch Cond:(Operator Eq Next:(Terminal top.state),(IntConst 2)) True:(IntConst 0)))))
+
+=== 综合信号分析结果 ===
+
+信号: CLK
+========================================
+
+代码块:
+--------------------
+类型: Portlist
+代码:
+    input CLK,
+    input RST,
+    input enable,
+    input [31:0] value,
+    output [7:0] led
+
+类型: Always
+代码:
+
+    always @(posedge CLK) begin
+      if(RST) begin
+        count <= 0;
+        state <= 0;
+      end else begin
+        if(state == 0) begin
+          if(enable) state <= 1;
+        end else if(state == 1) begin
+          state <= 2;
+        end else if(state == 2) begin
+          count <= count + value;
+          state <= 0;
+        end
+      end
+    end
+
+
+数据流:
+--------------------
+无数据流信息
+
+========================================
+
+信号: RST
+========================================
+
+代码块:
+--------------------
+类型: Portlist
+代码:
+    input CLK,
+    input RST,
+    input enable,
+    input [31:0] value,
+    output [7:0] led
+
+类型: Always
+代码:
+
+    always @(posedge CLK) begin
+      if(RST) begin
+        count <= 0;
+        state <= 0;
+      end else begin
+        if(state == 0) begin
+          if(enable) state <= 1;
+        end else if(state == 1) begin
+          state <= 2;
+        end else if(state == 2) begin
+          count <= count + value;
+          state <= 0;
+        end
+      end
+    end
+
+
+数据流:
+--------------------
+无数据流信息
+
+========================================
+
+信号: enable
+========================================
+
+代码块:
+--------------------
+类型: Portlist
+代码:
+    input CLK,
+    input RST,
+    input enable,
+    input [31:0] value,
+    output [7:0] led
+
+类型: Always
+代码:
+
+    always @(posedge CLK) begin
+      if(RST) begin
+        count <= 0;
+        state <= 0;
+      end else begin
+        if(state == 0) begin
+          if(enable) state <= 1;
+        end else if(state == 1) begin
+          state <= 2;
+        end else if(state == 2) begin
+          count <= count + value;
+          state <= 0;
+        end
+      end
+    end
+
+
+数据流:
+--------------------
+无数据流信息
+
+========================================
+
+信号: value
+========================================
+
+代码块:
+--------------------
+类型: Portlist
+代码:
+    input CLK,
+    input RST,
+    input enable,
+    input [31:0] value,
+    output [7:0] led
+
+类型: Always
+代码:
+
+    always @(posedge CLK) begin
+      if(RST) begin
+        count <= 0;
+        state <= 0;
+      end else begin
+        if(state == 0) begin
+          if(enable) state <= 1;
+        end else if(state == 1) begin
+          state <= 2;
+        end else if(state == 2) begin
+          count <= count + value;
+          state <= 0;
+        end
+      end
+    end
+
+
+数据流:
+--------------------
+无数据流信息
+
+========================================
+
+信号: led
+========================================
+
+代码块:
+--------------------
+类型: Portlist
+代码:
+    input CLK,
+    input RST,
+    input enable,
+    input [31:0] value,
+    output [7:0] led
+
+类型: Assign
+代码:
+    assign led = count[23:16];
+
+数据流:
+--------------------
+绑定类型: Bind
+表达式类型: DFPartselect
+
+========================================
+
+信号: count
+========================================
+
+代码块:
+--------------------
+类型: Decl
+代码:
+    reg [31:0] count;
+
+类型: Assign
+代码:
+    assign led = count[23:16];
+
+类型: Always
+代码:
+
+    always @(posedge CLK) begin
+      if(RST) begin
+        count <= 0;
+        state <= 0;
+      end else begin
+        if(state == 0) begin
+          if(enable) state <= 1;
+        end else if(state == 1) begin
+          state <= 2;
+        end else if(state == 2) begin
+          count <= count + value;
+          state <= 0;
+        end
+      end
+    end
+
+
+数据流:
+--------------------
+绑定类型: Bind
+表达式类型: DFPartselect
+
+绑定类型: Bind
+表达式类型: DFBranch
+时钟边沿: posedge
+时钟信号: top.CLK
+
+========================================
+
+信号: state
+========================================
+
+代码块:
+--------------------
+类型: Decl
+代码:
+    reg [7:0] state;
+
+类型: Always
+代码:
+
+    always @(posedge CLK) begin
+      if(RST) begin
+        count <= 0;
+        state <= 0;
+      end else begin
+        if(state == 0) begin
+          if(enable) state <= 1;
+        end else if(state == 1) begin
+          state <= 2;
+        end else if(state == 2) begin
+          count <= count + value;
+          state <= 0;
+        end
+      end
+    end
+
+
+数据流:
+--------------------
+绑定类型: Bind
+表达式类型: DFBranch
+时钟边沿: posedge
+时钟信号: top.CLK
+
+========================================

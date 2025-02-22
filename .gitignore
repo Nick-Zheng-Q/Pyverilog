@@ -1,3 +1,7 @@
 *.pyc
 *.out
 parsetab.py
+*.venv
+*.egg-info
+*.egg
+build/

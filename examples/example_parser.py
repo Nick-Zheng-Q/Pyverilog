@@ -46,7 +46,29 @@ def main():
                             preprocess_include=options.include,
                             preprocess_define=options.define)
 
-    ast.show()
+    # 创建不同类型的节点存储字典
+    node_groups = {
+        'Decl': [],
+        'Assign': [],
+        'Always': []
+    }
+    
+    # 遍历AST，将节点按类型分组
+    def collect_nodes(node):
+        if node.__class__.__name__ in node_groups:
+            node_groups[node.__class__.__name__].append(node)
+        for child in node.children():
+            collect_nodes(child)
+    
+    collect_nodes(ast)
+    
+    # 按组显示节点
+    for group_name, nodes in node_groups.items():
+        print(f"\n=== {group_name} Nodes ===")
+        for node in nodes:
+            node.show()
+    
+    # 显示编译指令
     for lineno, directive in directives:
         print('Line %d : %s' % (lineno, directive))
 
